@@ -1,0 +1,66 @@
+body {
+    /* background-color:lightgoldenrodyellow;  */
+    text-decoration: none;
+  }
+
+#form{
+    margin: auto;
+    margin-top: 5%;
+    height: 400px;
+    width: 300px;
+    
+    
+  }
+  .link{
+    justify-content: flex-end;
+  }
+
+  .head {
+    height: 100px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+  }
+
+  .extra-tool{
+    height: 50px;
+    justify-content: left;
+    color: blue;
+    margin-top: -50px;
+  
+  }
+  .link{
+    justify-items: flex-start;
+    justify-content: left;
+   
+    color: blue;
+    margin-top: -20px;
+    text-decoration: hotpink;
+   
+  }
+  .wrapper-tool{
+  height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(250, 219, 222, 1);
+  }
+  /* .register-btn{
+    width: 50%;
+    height: 10px;
+    background-image: linear-gradient(to bottom right, rgb(0, 203, 253), rgb(0, 76, 255));
+    justify-content: flex-end;
+    justify-items: flex-start;
+    display: flex;
+    padding-bottom: initial;
+    margin-left: 110px; 
+    margin-top: 30px;
+    text-align: start;
+    border-radius: 8px;
+
+  } */

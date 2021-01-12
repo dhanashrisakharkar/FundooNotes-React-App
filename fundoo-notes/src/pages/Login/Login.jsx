@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
+import Services from "../../Services/service";
 //import FormControlLabel from '@material-ui/core/FormControlLabel';
 //import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
@@ -16,10 +17,122 @@ import Container from '@material-ui/core/Container';
 import { Card } from '@material-ui/core';
 import "./login.css"
 import { withRouter } from 'react-router';
+import Snackbar from "@material-ui/core/Snackbar";
 
 
 
 class Login extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+        email: "",
+        password: "",
+        emailError: "",
+        emailFlag: false,
+        passwordError: "",
+        passwordFlag: false,
+        showPassword: false,
+        snackbarOpen: false,
+          snackbarMessage: "",
+      };
+      }
+    
+      nextPath(path) {
+        this.props.history.push(path);
+      }
+    
+      
+    
+      clickShowPass = () => {
+        this.setState({
+          ...this.state,
+          showPassword: !this.state.showPassword,
+        });
+      };
+    
+      change = (e) => {
+        this.setState({
+          [e.target.name]: e.target.value,
+        });
+      };
+    
+      validate = () => {
+        let isError = false;
+        const errors = {
+          emailError: "",
+          emailFlag: false,
+          passwordError: "",
+          passwordFlag: false,
+        };
+    
+        if (this.state.email.length == 0) {
+          errors.emailFlag = true;
+          isError = true;
+          errors.emailError = "Enter your Email ";
+        }
+        if (!/[a-zA-Z0-9._]+[@]{1}[a-zA-Z120-9]*[.]{1}[a-zA-Z]*$/.test(this.state.email)) {
+          errors.emailFlag = true;
+          isError = true;
+          errors.emailError = "Please Enter Correct Email";
+        }
+        if (this.state.password.length == 0) {
+          errors.passwordFlag = true;
+          isError = true;
+          errors.passwordError = "Enter Password";
+        }
+    
+        this.setState({
+          ...errors,
+        });
+    
+        return isError;
+      };
+      SnackbarClose = (e) => {
+        this.setState({ snackbarOpen: false });
+      };
+    
+      handleCloseSnackbar = () => {
+        this.setState({ snackbarOpen: false });
+      };
+    
+      onSubmit = (event) => {
+        event.preventDefault();
+        const err = this.validate();
+        if (!err) {
+          this.setState({
+            email: "",
+            emailFlag: false,
+            emailError: "",
+            password: "",
+            passwordFlag: false,
+            passwordError: "",
+          });
+          let loginData = {
+            email: this.state.email,
+            password: this.state.password,
+          };
+          Services
+            .login(loginData)
+            .then((response) => {
+              if (response.status === 200) {
+                this.setState({
+                  snackbarOpen: true,
+                  snackbarMessage: "Login Succesfully.",
+                });
+                localStorage.setItem("token", response.data.id);
+                setTimeout(() => {
+                  this.props.history.push("/dashboard");
+                }, 2000);
+              } else {
+                this.setState({
+                  snackbarOpen: true,
+                  snackbarMessage: "Enter correct credentials",
+                });
+              }
+            })
+            .catch();
+        }
+      };
 
 
     render() {
@@ -47,6 +160,10 @@ class Login extends Component {
                                         label="Email Address"
                                         name="email"
                                         autoComplete="email"
+                                        value={this.state.email}
+                                        helperText={this.state.emailError}
+                                        error={this.state.emailFlag}
+                                        onChange={(e) => this.change(e)}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -58,6 +175,10 @@ class Login extends Component {
                                         label="password"
                                         name="password"
                                         autoComplete="current-password"
+                                        value={this.state.password}
+                onChange={(e) => this.change(e)}
+                error={this.state.passwordFlag}
+                helperText={this.state.passwordError}
                                     />
                                 </Grid>
                             </Grid >
@@ -71,6 +192,8 @@ class Login extends Component {
                                         variant="contained"
                                         color="secondary"
                                         background-color="deepskyblue"
+                                        onClick={(e) => this.onSubmit(e)}
+
                                     >
                                         Sign In
                             </Button>

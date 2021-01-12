@@ -1,6 +1,6 @@
 import React from "react";
 import "./forgetpassword.css";
-import userServices from "../Services/service";
+import userServices from "../../Services/service";
 import { TextField, Card, Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 //import Snackbar from "@material-ui/core/Snackbar";

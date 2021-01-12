@@ -17,18 +17,16 @@ import axios from 'axios'
       return axios.post( `${URL}`, data)
 }
 
-let resetpassword = (data) => {
-   const URL = "http://fundoonotes.incubation.bridgelabz.com/api/user/reset"
-   let token = {
-      headers: {
-          'Content-Type': 'application/json',
-          'token': data.token
-      }
-  }
-  return axios.post(`${URL}`, data, true, token);
-}
+let resetpassword = (data, token) => {
+   console.log(data,token)
+   const URL = "http://fundoonotes.incubation.bridgelabz.com/api/user/reset-password"
+ return axios.post(`${URL}`, data, {
+   headers: {
+     Authorization: `${token}`,
+   },
+ });
+};
    // return axios.post( `${URL}`, data)
 
 
-
-export default {  register , login , forgetpassword ,resetpassword }
+export default {  register , login , forgetpassword ,resetpassword  }
