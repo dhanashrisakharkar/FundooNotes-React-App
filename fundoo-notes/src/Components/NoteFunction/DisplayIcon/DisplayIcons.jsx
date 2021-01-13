@@ -16,18 +16,12 @@ import Reminder from "../Reminder/Reminder"
 import {Chip} from "@material-ui/core";
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
-// const services = new Service()
 
 const DisplayIcons = ({ setBgColor, item, GetNote  ,  setRefresh , props }) => {
     const [color, setColor] = useState(false)
     const [showColorList, setShowColorList] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
-    // let Bgcolor = props.color;
-//     var noteId = [];
-//   noteId.push(item.id);
     
-
-
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -65,7 +59,6 @@ const DisplayIcons = ({ setBgColor, item, GetNote  ,  setRefresh , props }) => {
 
     const selectColor = (value) => {
         props.setBgColor(value);
-        // Bgcolor=value;
     };
 
 
@@ -76,63 +69,11 @@ const DisplayIcons = ({ setBgColor, item, GetNote  ,  setRefresh , props }) => {
     const handleColorOut = () => {
         setColor(false)
     }
-    // useEffect(() => {
-    //     if(dateTimeChip !== ""){
-    //       let data = {
-    //         reminder: dateTimeChip,
-    //         noteIdList: noteId
-    //       }
-    //       addReminder(data).then(
-    //         () => {setRefresh(Math.random())}
-    //       )
-    //       .catch(err=>{
-    //         console.warn("error", err);
-    //       })
-    //     }
-    //     setDateTimeChip("")
-    //   }, [dateTimeChip, noteId, setRefresh])
-
-    //   const handleDateAndTime = (value) =>{
-    //     let todaysDate = new Date().toString()
-    //     if(value.slice(0, 7) === todaysDate.slice(0, 7)){
-    //         return ('today '+moment(value).format("LT"))
-    //     }
-    //    return (value.slice(4,10)+', '+moment(value).format("LT"))
-    //   }
-
-    // const updateColor = () => {
-    //     if (props.id !== '') {
-    //         let data = {
-    //             noteIdList: [props.id], color : Bgcolor
-    //         }
-    //         Service.updateColor("userToken").then(res => {
-    //             console.log(res)
-    //             props.GetNote();
-    //         }).catch(err => {
-    //             console.log(err);
-    //         })
-    //     }
-    // }
-
-    
 
     return (
         <div className="tools">
             <IconButton aria-label="Remind me" edge="start">
                 <AddAlertOutlinedIcon fontSize="small" />
-                {/* {item.reminder !== undefined
-                  ? item.reminder.map((item, index)=>{
-                    let data = handleDateAndTime(item)
-                    return(
-                      <Chip 
-                        avatar={<AccessTimeIcon/>}
-                        key={index} 
-                        className="displayReminder"
-                        label={data}/>
-                      )})
-                  : null
-                } */}
-               {/* < Reminder setDateTimeChip={setDateTimeChip} item={item}/> */}
             </IconButton>
             <IconButton aria-label="Collaborator">
                 <PersonAddOutlinedIcon fontSize="small" />
@@ -152,9 +93,6 @@ const DisplayIcons = ({ setBgColor, item, GetNote  ,  setRefresh , props }) => {
                     ))}
                 </div>
             ) : null}
-            {/* <div>
-            <Colorpillote setBgColor={setBgColor} />
-            </div> */}
             <IconButton aria-label="Add image">
                 <ImageOutlinedIcon fontSize="small" />
             </IconButton>
