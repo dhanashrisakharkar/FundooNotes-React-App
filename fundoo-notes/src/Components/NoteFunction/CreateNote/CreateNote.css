@@ -1,3 +1,4 @@
+/* css for creatte  note*/
 .notes {
     display: flex;
     flex-direction: column;
@@ -68,6 +69,7 @@
     padding: 8px 24px;
 }
 
+/*media queries for create not app*/
 @media screen and (max-width: 700px) {
     .notes {
         width: max-content;
