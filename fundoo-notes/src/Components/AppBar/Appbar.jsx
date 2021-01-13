@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Appbar.css";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -12,12 +12,26 @@ import DnsRoundedIcon from "@material-ui/icons/DnsRounded";
 import ReplayOutlinedIcon from "@material-ui/icons/ReplayOutlined";
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircle';
 import AppsRoundedIcon from "@material-ui/icons/AppsRounded";
+import { useHistory } from "react-router-dom";
 import Sidebar from "../Drawer/Drawer";
+import { Avatar, Button } from "@material-ui/core";
+import dhanashri from "../assets/images/dhanashri.jpg"
 
 var checkOpen = "close";
+// const styles = {
+//   paperContainer: {
+//         Image: `url(${dhanashri})`
+//   }
+// };
 
 export default function ToolBar() {
   const [open, setOpen] = React.useState(false);
+  const [hide, setHide] = useState(false)
+  let history = useHistory();
+
+  let userEmail = localStorage.getItem("email")
+  let userFirstName = localStorage.getItem("firstName")
+  let userLastName = localStorage.getItem("lastName")
 
   const drawerOpenClose = () => {
     if (checkOpen == "open") {
@@ -29,6 +43,19 @@ export default function ToolBar() {
     }
     console.log(checkOpen);
   };
+
+  const handleHideAccount = () => {
+    setHide(!hide)
+  }
+
+  const handleUnHideAccount = () => {
+    setHide(false)
+  }
+  const handleLogout = () => {
+    localStorage.clear();
+    history.push("/");
+  };
+
 
   return (
     <div className="main">
@@ -89,10 +116,33 @@ export default function ToolBar() {
                 <AppsRoundedIcon />
               </IconButton>
             </div>
-            <div className="button">
-              <IconButton aria-label="open drawer">
-                <AccountCircleOutlinedIcon />
-              </IconButton>
+            <div className="image">
+              <div className="button">
+                <IconButton aria-label="open drawer" onClick={handleHideAccount}>
+                  <Avatar alt='profile' src={dhanashri} />
+                </IconButton>
+              </div>
+            </div>
+            <div className={hide ? "true profile" : "false profile"} >
+              <div className="person">
+                <div className="avatarContainer">
+                  <Avatar className="avatarIcon" alt='profile' src={dhanashri} />
+                </div>
+                <div className='name' style={{ fontSize: 15 }}>
+                  {userFirstName} {userLastName}
+                </div>
+                <div className='email' style={{ fontSize: 15 }}>
+                  {userEmail}
+                </div>
+              </div>
+              <div className="cardActions">
+                <Button variant="contained" style={{
+                  fontWeight: 700,
+                  backgroundColor: "#f73378",
+                }} onClick={() => {
+                  handleLogout()
+                }}>SIGN OUT</Button>
+              </div>
             </div>
           </div>
         </Toolbar>
