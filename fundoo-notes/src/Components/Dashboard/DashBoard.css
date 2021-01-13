@@ -1,3 +1,4 @@
+/* css for dashbord */
 .main{
     margin-left: 20%;
     flex-direction: column;
@@ -5,10 +6,7 @@
     min-width: 320px;
     align-content: center;
     position: relative;
-    justify-content: center;
-    /* margin-bottom: 10%; */
-       
-      
+    justify-content: center;      
 }
 .row{
     content: "";
