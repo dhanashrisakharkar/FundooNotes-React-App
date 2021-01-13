@@ -1,4 +1,4 @@
-import React , { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import InputBase from "@material-ui/core/InputBase";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
@@ -12,6 +12,7 @@ import DisplayIcons from "../DisplayIcon/DisplayIcons";
 
 // import CardActions from "@material-ui/core";
 
+// makestyles for note on dashboard
 const useStyles = makeStyles((theme) => ({
   titleInput: {
     padding: "10px 15px",
@@ -37,10 +38,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export default function AddNote({GetNote} ) {
-   const [open, setOpen] = useState(true);
+
+// creater note rendering with functional component
+export default function AddNote({ GetNote }) {
+  const [open, setOpen] = useState(true);
   const [title, setTitle] = React.useState("");
-  const [description, setDescription] =React.useState("");
+  const [description, setDescription] = React.useState("");
   const classes = useStyles();
   const [pin, setPin] = useState(false)
   const [loading, setLoading] = React.useState(false);
@@ -56,84 +59,64 @@ export default function AddNote({GetNote} ) {
     data.set("color", bgColor);
     if (title !== "" && description !== "") {
       setLoading(true);
-      NoteServices.addNote(data )
+      NoteServices.addNote(data)
         .then(() => {
-          // setLoading(false);
           GetNote()
           setBgColor('#fff')
-          setLoading ({
-            
-            title : " ",
-            description : " "
+          setLoading({
+            title: " ",
+            description: " "
           })
           console.log("Note added Sucessfully")
         })
         .catch(() => {
-          // setLoading(false);
-         
           console.log("Some Error Occured while processing request")
         });
     } else {
-      
       console.log("Title and description cannot be empty")
     }
   };
 
-  // const updateNotes = () => {
-  //   let formData = new FormData()
-  //   formData.append('title', title)
-  //   formData.append('description', description)
-  //   formData.append('noteId', item.id)
-  //   updateNoteTitleDescription(formData).then(
-  //     ()=> {setRefresh(Math.random)}
-  //   )
-  //   .catch(err=>{
-  //     console.warn("error", err);
-  //   })
-  // }
-
-
   const handlePin = () => {
     setPin(true)
-}
-const handleClick = () => {
-  setOpen(false)
-}
+  }
+  const handleClick = () => {
+    setOpen(false)
+  }
 
-const handleClose = () => {
-  setOpen(true)
-}
-
+  const handleClose = () => {
+    setOpen(true)
+  }
+// Ui design for create note
   return (
     <div className="notes">
-        {open ?
-            <div className="contain container" >
-                <div className="note" onClick={handleClick}>Take a note...</div>
-                <IconButton><CheckBoxOutlinedIcon /></IconButton>
-                <IconButton> <BrushIcon /></IconButton>
-                <IconButton> <ImageOutlinedIcon /></IconButton>
-            </div> :
-            <div className="contain container1" style={{ backgroundColor: bgColor }}>
-                <div className="note1" >
-                    <div className="title pd">
-                        <InputBase placeholder='Title' fullWidth  onChange={(e) => setTitle(e.currentTarget.value)} />
-                        <IconButton onClick={handlePin}>
-                            {/* <img src={pin ? FilledPin : OutlinedPin} alt='pin' /> */}
-                        </IconButton>
-                    </div>
-                    <div className='note pd'>
-                        <InputBase placeholder='Take a note...' fullWidth 
-                            onChange={(e) => setDescription(e.currentTarget.value)} />
-                    </div>
-                </div>
-                <div className="toolbar">
-                    <DisplayIcons setBgColor={setBgColor} id={id}/>
-                    <div className="close-button">
-                        <Button size="small" onClick={() => {addNote(); handleClose();}}>Close</Button>
-                    </div>
-                </div>
+      {open ?
+        <div className="contain container" >
+          <div className="note" onClick={handleClick}>Take a note...</div>
+          <IconButton><CheckBoxOutlinedIcon /></IconButton>
+          <IconButton> <BrushIcon /></IconButton>
+          <IconButton> <ImageOutlinedIcon /></IconButton>
+        </div> :
+        <div className="contain container1" style={{ backgroundColor: bgColor }}>
+          <div className="note1" >
+            <div className="title pd">
+              <InputBase placeholder='Title' fullWidth onChange={(e) => setTitle(e.currentTarget.value)} />
+              <IconButton onClick={handlePin}>
+              </IconButton>
             </div>
-        }
+            <div className='note pd'>
+              <InputBase placeholder='Take a note...' fullWidth
+                onChange={(e) => setDescription(e.currentTarget.value)} />
+            </div>
+          </div>
+          <div className="toolbar">
+            <DisplayIcons setBgColor={setBgColor} id={id} />
+            <div className="close-button">
+              <Button size="small" onClick={() => { addNote(); handleClose(); }}>Close</Button>
+            </div>
+          </div>
+        </div>
+      }
     </div>
-    );
+  );
 }
