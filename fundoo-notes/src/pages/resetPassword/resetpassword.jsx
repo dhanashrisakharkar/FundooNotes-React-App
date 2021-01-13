@@ -6,6 +6,8 @@ import "./resetPassword.css";
 import UserService from "../../Services/service";
 
 //var userservice = new UserService();
+
+// Reset password page using class component
 export default class EmailVerification extends Component {
     nextPath(path) {
         this.props.history.push(path);
@@ -61,6 +63,7 @@ export default class EmailVerification extends Component {
         return isError;
     };
 
+    // to reset password the password data will be send on token and set on localStorage 
     onSubmit = (e) => {
         e.preventDefault();
         const err = this.validate();
