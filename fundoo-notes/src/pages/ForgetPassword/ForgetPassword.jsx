@@ -6,10 +6,13 @@ import Button from "@material-ui/core/Button";
 //import Snackbar from "@material-ui/core/Snackbar";
 import Typography from "@material-ui/core/Typography";
 
+//Regex for Email Validation
 const regexValidateEmail = new RegExp(
   /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$$/
 );
 
+
+// Forgot page  implementation using Class Component 
 class ForgetPassword extends React.Component {
   constructor(props){
     super(props);
@@ -27,6 +30,7 @@ class ForgetPassword extends React.Component {
   };
     
   }
+  //Storing Data on token and local storage
   handleEmailInput = (event) => {
      event.preventDefault();
     this.setState({
